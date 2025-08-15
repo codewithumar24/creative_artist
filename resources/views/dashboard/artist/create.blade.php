@@ -1,226 +1,192 @@
-<!-- resources/views/artists/index.blade.php -->
+<!-- resources/views/dashboard/artists/create.blade.php -->
 @extends('dashboard.dashboardLayout')
 
 @section('mainDashboard')
-<div id="artists-page">
-    <section class="py-5">
-        <div class="container py-5">
-            <!-- Error Message Placeholder -->
-            <div class="alert alert-danger alert-dismissible fade show d-none" id="errorAlert">
-                <i class="fas fa-exclamation-triangle me-2"></i>
-                <span id="errorMessage">Sample error message would appear here</span>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
+<div class="main-content">
+    <div class="header">
+        <div class="header-left">
+            <h5 class="mb-0">
+                <a href="#" class="text-dark" onclick="history.back()">
+                    <i class="bi bi-arrow-left me-2"></i>
+                </a>
+                <i class="bi bi-person-plus me-2"></i> Add New Artist
+            </h5>
+        </div>
+    </div>
 
-            <div class="row justify-content-center">
-                <div class="col-lg-8 text-center">
-                    <h2 class="section-title">Our Artists</h2>
-                    <p class="lead">Discover and connect with talented artists from around the world.</p>
-                </div>
-            </div>
-            
-            <!-- Artist Create Form (Normally would be in separate view) -->
-            <div class="row justify-content-center mb-5 d-none" id="artistFormContainer">
-                <div class="col-lg-8">
-                    <div class="card shadow-sm">
-                        <div class="card-body">
-                            <h4 class="card-title mb-4">Add New Artist</h4>
-                            <form id="artistForm">
-                                <div class="mb-3">
-                                    <label for="artistName" class="form-label">Name <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="artistName" required>
-                                    <div class="invalid-feedback d-none" id="nameError">Please enter a name</div>
+    <div class="container-fluid py-4">
+        <!-- Error Message Placeholder -->
+        <div class="alert alert-danger alert-dismissible fade show d-none" id="errorAlert">
+            <i class="bi bi-exclamation-triangle me-2"></i>
+            <span id="errorMessage">Sample error message would appear here</span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+
+        <div class="card dashboard-card">
+            <div class="card-body">
+               <form id="artistForm" method="POST" action="{{ route('artist.store')}}" enctype="multipart/form-data">
+                     @csrf
+                     <div class="row">
+                        <!-- Left Column -->
+                        <div class="col-md-6">
+                            <!-- Name -->
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Full Name <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="name" name="name" required>
+                                <div class="invalid-feedback d-none" id="nameError">Please enter the artist's name</div>
+                            </div>
+
+                            <!-- Specialty -->
+                            <div class="mb-3">
+                                <label for="specialty" class="form-label">Primary Specialty <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="specialty" name="specialty" required>
+                                <div class="invalid-feedback d-none" id="specialtyError">Please specify the artist's specialty</div>
+                            </div>
+
+                            <!-- Location -->
+                            <div class="mb-3">
+                                <label for="location" class="form-label">Location</label>
+                                <input type="text" class="form-control" id="location" name="location">
+                            </div>
+
+                            <!-- Bio -->
+                            <div class="mb-3">
+                                <label for="bio" class="form-label">Artist Bio</label>
+                                <textarea class="form-control" id="bio" name="bio" rows="4"></textarea>
+                            </div>
+                        </div>
+
+                        <!-- Right Column -->
+                        <div class="col-md-6">
+                            <!-- Avatar Upload -->
+                            <div class="mb-3">
+                                <label for="avatar" class="form-label">Profile Image <span class="text-danger">*</span></label>
+                                <input type="file" class="form-control" id="avatar" name="avatar" accept="image/*" required>
+                                <div class="invalid-feedback d-none" id="avatarError">Please upload a profile image</div>
+                                <div class="form-text">Recommended size: 500x500 pixels</div>
+                            </div>
+
+                            <!-- Social Media Links -->
+                            <div class="mb-3">
+                                <label class="form-label">Social Media Links</label>
+                                
+                                <div class="input-group mb-2">
+                                    <span class="input-group-text"><i class="bi bi-instagram"></i></span>
+                                    <input type="url" class="form-control" id="instagram" name="instagram" placeholder="Instagram URL">
                                 </div>
-                                <div class="mb-3">
-                                    <label for="artistSpecialty" class="form-label">Specialty <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="artistSpecialty" required>
-                                    <div class="invalid-feedback d-none" id="specialtyError">Please enter a specialty</div>
+                                
+                                <div class="input-group mb-2">
+                                    <span class="input-group-text"><i class="bi bi-twitter"></i></span>
+                                    <input type="url" class="form-control" id="twitter" name="twitter" placeholder="Twitter URL">
                                 </div>
-                                <div class="mb-3">
-                                    <label for="artistLocation" class="form-label">Location</label>
-                                    <input type="text" class="form-control" id="artistLocation">
+                                
+                                <div class="input-group mb-2">
+                                    <span class="input-group-text"><i class="bi bi-behance"></i></span>
+                                    <input type="url" class="form-control" id="behance" name="behance" placeholder="Behance URL">
                                 </div>
-                                <div class="mb-3">
-                                    <label for="artistAvatar" class="form-label">Profile Image <span class="text-danger">*</span></label>
-                                    <input type="file" class="form-control" id="artistAvatar" accept="image/*" required>
-                                    <div class="invalid-feedback d-none" id="avatarError">Please select an image</div>
+                                
+                                <div class="input-group mb-2">
+                                    <span class="input-group-text"><i class="bi bi-dribbble"></i></span>
+                                    <input type="url" class="form-control" id="dribbble" name="dribbble" placeholder="Dribbble URL">
                                 </div>
-                                <div class="mb-3">
-                                    <label class="form-label">Social Links</label>
-                                    <div class="input-group mb-2">
-                                        <span class="input-group-text"><i class="fab fa-instagram"></i></span>
-                                        <input type="url" class="form-control" placeholder="Instagram">
-                                    </div>
-                                    <div class="input-group mb-2">
-                                        <span class="input-group-text"><i class="fab fa-twitter"></i></span>
-                                        <input type="url" class="form-control" placeholder="Twitter">
-                                    </div>
-                                    <div class="input-group">
-                                        <span class="input-group-text"><i class="fab fa-behance"></i></span>
-                                        <input type="url" class="form-control" placeholder="Behance">
-                                    </div>
+                                
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="bi bi-globe"></i></span>
+                                    <input type="url" class="form-control" id="website" name="website" placeholder="Website URL">
                                 </div>
-                                <div class="d-flex justify-content-end">
-                                    <button type="button" class="btn btn-outline-secondary me-2" onclick="hideForm()">Cancel</button>
-                                    <button type="submit" class="btn btn-primary">Add Artist</button>
-                                </div>
-                            </form>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
 
-            <!-- Add Artist Button (For Demo) -->
-            <div class="text-center mb-5">
-                <button class="btn btn-success" onclick="showForm()">
-                    <i class="fas fa-plus me-2"></i> Add New Artist
-                </button>
-            </div>
-            
-            <!-- Artist Cards -->
-            <div class="row mt-5" id="artistContainer">
-                <!-- Sample Artist 1 -->
-                <div class="col-md-6 col-lg-4 mb-4">
-                    <div class="artist-card">
-                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Artist" class="artist-avatar">
-                        <h4>Jessica Parker</h4>
-                        <p class="text-muted">Oil Painter</p>
-                        <p class="small">New York, USA</p>
-                        <div class="artist-social">
-                            <a href="#"><i class="fab fa-instagram"></i></a>
-                            <a href="#"><i class="fab fa-twitter"></i></a>
-                            <a href="#"><i class="fab fa-behance"></i></a>
-                        </div>
-                        <button class="btn btn-outline-primary mt-3" onclick="showError('View profile functionality would be implemented')">
-                            View Portfolio
+                    <!-- Form Actions -->
+                    <div class="d-flex justify-content-between pt-3 border-top">
+                        <button type="button" class="btn btn-outline-secondary" onclick="history.back()">
+                            <i class="bi bi-x-lg me-1"></i> Cancel
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-check-lg me-1"></i> Save Artist
                         </button>
                     </div>
-                </div>
-                
-                <!-- Sample Artist 2 -->
-                <div class="col-md-6 col-lg-4 mb-4">
-                    <div class="artist-card">
-                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Artist" class="artist-avatar">
-                        <h4>David Kim</h4>
-                        <p class="text-muted">Digital Artist</p>
-                        <p class="small">Seoul, South Korea</p>
-                        <div class="artist-social">
-                            <a href="#"><i class="fab fa-instagram"></i></a>
-                            <a href="#"><i class="fab fa-twitter"></i></a>
-                            <a href="#"><i class="fab fa-dribbble"></i></a>
-                        </div>
-                        <button class="btn btn-outline-primary mt-3" onclick="showError('View profile functionality would be implemented')">
-                            View Portfolio
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- More sample artists... -->
-            </div>
-            
-            <div class="text-center mt-4">
-                <button class="btn btn-primary" id="load-more-artists" onclick="showError('Load more functionality would be implemented')">
-                    Load More Artists
-                </button>
+                </form>
             </div>
         </div>
-    </section>
+    </div>
 </div>
 @endsection
 
 @push('styles')
 <style>
-    .artist-card {
-        background: white;
+    .dashboard-card {
+        max-width: 900px;
+        margin: 0 auto;
         border-radius: 10px;
-        padding: 25px;
-        text-align: center;
-        height: 100%;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        transition: transform 0.3s ease;
     }
-    .artist-card:hover {
-        transform: translateY(-5px);
+    .input-group-text {
+        width: 40px;
+        justify-content: center;
     }
-    .artist-avatar {
-        width: 120px;
-        height: 120px;
-        border-radius: 50%;
-        object-fit: cover;
-        margin: 0 auto 20px;
-        border: 3px solid #6C63FF;
+    .invalid-feedback {
+        font-size: 0.85rem;
     }
-    .artist-social {
-        margin: 15px 0;
-    }
-    .artist-social a {
+    .form-text {
+        font-size: 0.8rem;
         color: #6c757d;
-        font-size: 1.2rem;
-        margin: 0 8px;
-        transition: color 0.3s;
-    }
-    .artist-social a:hover {
-        color: #6C63FF;
-    }
-    .section-title {
-        font-weight: 700;
-        color: #2F2E41;
-        margin-bottom: 15px;
     }
 </style>
 @endpush
 
 @push('scripts')
 <script>
-    // Demo functions for error/success handling
-    function showError(message) {
-        document.getElementById('errorMessage').textContent = message;
-        document.getElementById('errorAlert').classList.remove('d-none');
-        setTimeout(() => {
-            document.getElementById('errorAlert').classList.add('d-none');
-        }, 5000);
-    }
-
-    function showForm() {
-        document.getElementById('artistFormContainer').classList.remove('d-none');
-    }
-
-    function hideForm() {
-        document.getElementById('artistFormContainer').classList.add('d-none');
-    }
-
-    // Form validation demo
     document.getElementById('artistForm').addEventListener('submit', function(e) {
-        e.preventDefault();
+    e.preventDefault();
+    
+    // Reset previous errors
+    document.querySelectorAll('.is-invalid').forEach(el => {
+        el.classList.remove('is-invalid');
+    });
+    document.querySelectorAll('.invalid-feedback').forEach(el => {
+        el.classList.add('d-none');
+    });
+
+    // Client-side validation
+    let isValid = true;
+    const requiredFields = ['name', 'specialty', 'avatar'];
+    
+    requiredFields.forEach(fieldId => {
+        const field = document.getElementById(fieldId);
+        const errorElement = document.getElementById(fieldId + 'Error');
         
-        // Simple validation
-        let isValid = true;
-        const name = document.getElementById('artistName');
-        const specialty = document.getElementById('artistSpecialty');
-        const avatar = document.getElementById('artistAvatar');
-        
-        if (!name.value.trim()) {
-            document.getElementById('nameError').classList.remove('d-none');
-            name.classList.add('is-invalid');
+        if (field.type === 'file' ? !field.files.length : !field.value.trim()) {
+            field.classList.add('is-invalid');
+            errorElement.classList.remove('d-none');
             isValid = false;
-        }
-        
-        if (!specialty.value.trim()) {
-            document.getElementById('specialtyError').classList.remove('d-none');
-            specialty.classList.add('is-invalid');
-            isValid = false;
-        }
-        
-        if (!avatar.files.length) {
-            document.getElementById('avatarError').classList.remove('d-none');
-            avatar.classList.add('is-invalid');
-            isValid = false;
-        }
-        
-        if (isValid) {
-            showError('Form would be submitted to backend in real implementation');
-            hideForm();
         }
     });
+
+    // Validate URLs if provided
+    const urlFields = ['instagram', 'twitter', 'behance', 'dribbble', 'website'];
+    urlFields.forEach(fieldId => {
+        const field = document.getElementById(fieldId);
+        if (field.value.trim() && !isValidUrl(field.value)) {
+            field.classList.add('is-invalid');
+            isValid = false;
+        }
+    });
+
+    if (isValid) {
+        this.submit();
+    } else {
+        showError('Please fix the errors in the form');
+    }
+});
+
+function isValidUrl(string) {
+    try {
+        new URL(string);
+        return true;
+    } catch (_) {
+        return false;
+    }
+}
 </script>
 @endpush

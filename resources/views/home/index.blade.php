@@ -8,8 +8,8 @@
                 <h1 class="hero-title">Showcase Your Creative Passion</h1>
                 <p class="hero-subtitle">Join our community of talented artists and share your work with the world. Get discovered, get inspired, and grow your artistic career.</p>
                 <div class="hero-buttons d-flex flex-wrap">
-                    <a href="register.html" class="btn btn-primary me-3 mb-3">Join Now</a>
-                    <a href="gallery.html" class="btn btn-outline-primary mb-3">Explore Artwork</a>
+                    <a href="{{ route("auth.register") }}" class="btn btn-primary me-3 mb-3">Join Now</a>
+                    <a href="{{ route("home.gallery") }}" class="btn btn-outline-primary mb-3">Explore Artwork</a>
                 </div>
             </div>
             <div class="col-lg-6">
@@ -30,7 +30,15 @@
         </div>
 
         <div class="row mt-5">
-            <div class="col-md-4 mb-4 animate-on-scroll">
+
+        
+            <x-cart iconclass="fas fa-palette" paragraph="Create a stunning online portfolio that showcases your artwork in the best light with our customizable templates." heading="Beautiful Portfolio" />
+
+            <x-cart iconclass="fas fa-users" paragraph="Connect with thousands of art enthusiasts, collectors, and fellow artists who appreciate your creative work." heading="Engaged Community" />
+
+            <x-cart iconclass="fas fa-chart-line" paragraph="Access analytics, marketing tools, and resources to help you grow your audience and artistic career." heading="Growth Tools" />
+
+            {{-- <div class="col-md-4 mb-4 animate-on-scroll">
                 <div class="feature-card">
                     <div class="feature-icon">
                         <i class="fas fa-palette"></i>
@@ -38,27 +46,7 @@
                     <h3>Beautiful Portfolio</h3>
                     <p>Create a stunning online portfolio that showcases your artwork in the best light with our customizable templates.</p>
                 </div>
-            </div>
-
-            <div class="col-md-4 mb-4 animate-on-scroll">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <h3>Engaged Community</h3>
-                    <p>Connect with thousands of art enthusiasts, collectors, and fellow artists who appreciate your creative work.</p>
-                </div>
-            </div>
-
-            <div class="col-md-4 mb-4 animate-on-scroll">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <h3>Growth Tools</h3>
-                    <p>Access analytics, marketing tools, and resources to help you grow your audience and artistic career.</p>
-                </div>
-            </div>
+            </div> --}}
         </div>
     </div>
 </section>
@@ -73,73 +61,37 @@
             </div>
         </div>
 
-        <div class="row mt-5">
-            <div class="col-md-6 col-lg-4 mb-4 animate-on-scroll">
-                <div class="artwork-card">
-                    <div class="artwork-img-container" style="overflow: hidden;">
-                        <img src="{{ asset("images/main1.jpg") }}" alt="Abstract painting" class="artwork-img">
-                    </div>
-                    <div class="artwork-info">
-                        <h4>Colorful Abstraction</h4>
-                        <p class="text-muted">Acrylic on canvas</p>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <a href="artist-profile.html" class="text-decoration-none">
-                                <div class="d-flex align-items-center">
-                                    <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Artist" class="rounded-circle me-2" width="30">
-                                    <span>Sarah Johnson</span>
-                                </div>
-                            </a>
-                            <span class="badge bg-primary">Painting</span>
-                        </div>
-                    </div>
+      <div class="row mt-5">
+    @foreach ($artworks as $artwork)
+        <div class="col-md-6 col-lg-4 mb-4 animate-on-scroll">
+            <div class="artwork-card">
+                <div class="artwork-img-container">
+                    <img src="{{ asset('storage/'.$artwork->image) }}" alt="{{ $artwork->title }}" class="artwork-img">
                 </div>
-            </div>
-
-            <div class="col-md-6 col-lg-4 mb-4 animate-on-scroll">
-                <div class="artwork-card">
-                    <div class="artwork-img-container" style="overflow: hidden;">
-                        <img src="https://images.unsplash.com/photo-1553514029-1318c9127859?auto=format&fit=crop&w=1000&q=80" alt="Digital illustration" class="artwork-img">
-                    </div>
-                    <div class="artwork-info">
-                        <h4>Urban Dreams</h4>
-                        <p class="text-muted">Digital illustration</p>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <a href="artist-profile.html" class="text-decoration-none">
-                                <div class="d-flex align-items-center">
-                                    <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Artist" class="rounded-circle me-2" width="30">
-                                    <span>Michael Chen</span>
+                <div class="artwork-info">
+                    <h4>{{ $artwork->title }}</h4>
+                    <p class="text-muted">{{ $artwork->description }}</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <a href="artist-profile.html" class="text-decoration-none artist-link">
+                            <div class="d-flex align-items-center">
+                                <div class="artist-avatar-container">
+                                    <img src="{{ asset('storage/'.$artwork->artist_image) }}" 
+                                         alt="{{ $artwork->artist_name }}" 
+                                         class="artist-avatar">
                                 </div>
-                            </a>
-                            <span class="badge bg-success">Digital Art</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6 col-lg-4 mb-4 animate-on-scroll">
-                <div class="artwork-card">
-                    <div class="artwork-img-container" style="overflow: hidden;">
-                        <img src="https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=1000&q=80" alt="Sculpture" class="artwork-img">
-                    </div>
-                    <div class="artwork-info">
-                        <h4>Eternal Balance</h4>
-                        <p class="text-muted">Marble sculpture</p>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <a href="artist-profile.html" class="text-decoration-none">
-                                <div class="d-flex align-items-center">
-                                    <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Artist" class="rounded-circle me-2" width="30">
-                                    <span>Emma Rodriguez</span>
-                                </div>
-                            </a>
-                            <span class="badge bg-warning text-dark">Sculpture</span>
-                        </div>
+                                <span class="artist-name">{{ $artwork->artist_name }}</span>
+                            </div>
+                        </a>
+                        <span class="badge bg-primary">{{ $artwork->category->name }}</span>
                     </div>
                 </div>
             </div>
         </div>
+    @endforeach
+</div>
 
         <div class="text-center mt-4">
-            <a href="gallery.html" class="btn btn-primary">View All Artwork</a>
+            <a href="{{ route("home.gallery") }}" class="btn btn-primary">View All Artwork</a>
         </div>
     </div>
 </section>
@@ -213,7 +165,7 @@
         </div>
 
         <div class="text-center mt-4">
-            <a href="artists.html" class="btn btn-primary">Discover More Artists</a>
+            <a href="{{ route("home.artist") }}" class="btn btn-primary">Discover More Artists</a>
         </div>
     </div>
 </section>
@@ -284,7 +236,7 @@
 </section>
 
 {{-- Call to Action Section --}}
-<section class="py-5" style="background-color: var(--primary-color); color: white;">
+<section class="py-5 mb-5" style="background-color: var(--primary-color); color: white;">
     <div class="container py-5">
         <div class="row align-items-center">
             <div class="col-lg-8">
@@ -292,9 +244,15 @@
                 <p class="lead mb-0">Join thousands of artists who are building their online presence with CreativeHobbies.</p>
             </div>
             <div class="col-lg-4 text-lg-end mt-4 mt-lg-0">
-                <a href="register.html" class="btn btn-light btn-lg">Get Started Now</a>
+                <a href="{{ route("auth.register") }}" class="btn btn-light btn-lg">Get Started Now</a>
             </div>
         </div>
     </div>
 </section>
 @endsection
+
+
+
+
+
+

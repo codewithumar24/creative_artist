@@ -492,3 +492,91 @@
             width: 80px;
 
         }
+
+
+        /* Artwork card styling */
+    .artwork-card {
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .artwork-card:hover {
+        transform: translateY(-5px);
+    }
+
+    /* Image container */
+    .artwork-img-container {
+        height: 250px;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .artwork-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+    }
+
+    .artwork-img-container:hover .artwork-img {
+        transform: scale(1.05);
+    }
+
+    /* Artwork info */
+    .artwork-info {
+        padding: 1.25rem;
+        background: white;
+        flex-grow: 1;
+    }
+
+    .artwork-info h4 {
+        font-size: 1.1rem;
+        margin-bottom: 0.5rem;
+        color: #333;
+    }
+
+    .artwork-info p {
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    /* Artist avatar styling */
+    .artist-avatar-container {
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        overflow: hidden;
+        border: 2px solid #f8f9fa;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .artist-avatar {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .artist-name {
+        margin-left: 0.5rem;
+        font-size: 0.9rem;
+        color: #333;
+    }
+
+    .artist-link:hover .artist-name {
+        color: #0d6efd;
+    }
+
+    /* Category badge */
+    .badge {
+        font-size: 0.75rem;
+        padding: 0.35em 0.65em;
+    }

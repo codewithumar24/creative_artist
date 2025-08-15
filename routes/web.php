@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\dashboard\ArtistController;
 use App\Http\Controllers\dashboard\ArtworkController;
 use App\Http\Controllers\dashboard\CategoryController;
 use App\Http\Controllers\dashboard\DashboardController;
@@ -27,7 +28,7 @@ Route::post("/logout", [AuthController::class, "logout"])->name("auth.logout");
 //dashboard Routes
 
 //category controller
-Route::middleware(['auth'])->prefix('/dashboard')->group(function () {
+Route::middleware(['auth','is_Admin'])->prefix('/dashboard')->group(function () {
     Route::get("/", [DashboardController::class, "index"])->name("dashboard.index");
 
     Route::get("/category", [CategoryController::class, "index"])->name("category.index");
@@ -41,4 +42,17 @@ Route::middleware(['auth'])->prefix('/dashboard')->group(function () {
     Route::get("/artwork", [ArtworkController::class, "index"])->name("artwork.index");
     Route::get("/artwork/create", [ArtworkController::class, "create"])->name("artwork.create");
     Route::post("/artwork/store", [ArtworkController::class, "store"])->name("artwork.store");
+    Route::get("/artwork/edit/{id}", [ArtworkController::class, "edit"])->name("artwork.edit");
+    Route::post("/artwork/update/{id}", [ArtworkController::class, "update"])->name("artwork.update");
+    Route::post('/artwork/destroy/{id}', [ArtworkController::class, 'destroy'])->name('artwork.destroy');
+    Route::get('/artwork/{artwork}', [ArtworkController::class, 'show'])->name('artwork.show');
+
+    // Artist Route
+    Route::get("/artist", [ArtistController::class, "index",])->name("artist.index");
+    Route::get("/artist/create", [ArtistController::class, "create",])->name("artist.create");
+    Route::post("/artist.store", [ArtistController::class, "store"])->name("artist.store");
+    Route::get('/artist/{artist}/edit', [ArtistController::class, 'edit'])->name('artist.edit');
+    Route::post('/artist/{artist}', [ArtistController::class, 'update'])->name('artist.update');
+    Route::get("/artist/delete/{id}",[ArtistController::class,"destroy"])->name("artist.destroy");
+    Route::get('/artist/{artist}', [ArtistController::class, 'show'])->name('artist.show');
 });

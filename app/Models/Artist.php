@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Artist extends Model
 {
-     protected $fillable = [
+    protected $fillable = [
         'name',
         'specialty',
         'bio',
@@ -25,9 +25,9 @@ class Artist extends Model
     public function getAvatarUrl()
     {
         if ($this->avatar) {
-            return asset('storage/'.$this->avatar);
+            return asset('storage/' . $this->avatar);
         }
-        return 'https://randomuser.me/api/portraits/'.(rand(0, 1) ? 'men' : 'women').'/'.rand(1, 99).'.jpg';
+        return 'https://randomuser.me/api/portraits/' . (rand(0, 1) ? 'men' : 'women') . '/' . rand(1, 99) . '.jpg';
     }
 
     /**
@@ -49,8 +49,12 @@ class Artist extends Model
      */
     public function scopeSearch($query, $search)
     {
-        return $query->where('name', 'like', '%'.$search.'%')
-                    ->orWhere('specialty', 'like', '%'.$search.'%')
-                    ->orWhere('location', 'like', '%'.$search.'%');
+        return $query->where('name', 'like', '%' . $search . '%')
+            ->orWhere('specialty', 'like', '%' . $search . '%')
+            ->orWhere('location', 'like', '%' . $search . '%');
+    }
+    public function artworks()
+    {
+        return $this->hasMany(Artwork::class);
     }
 }

@@ -6,6 +6,23 @@
         <div class="header-left">
             <h5 class="mb-0"><i class="bi bi-brush me-2"></i> Artwork Collection</h5>
         </div>
+
+@if(session('success'))
+    <div class="alert alert-success alert-dismissible fade show">
+        <i class="bi bi-check-circle me-2"></i>
+        {{ session('success') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
+@if(session('error'))
+    <div class="alert alert-danger alert-dismissible fade show">
+        <i class="bi bi-exclamation-triangle me-2"></i>
+        {{ session('error') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
         <div class="header-right">
             <a href="{{ route("artwork.create") }}" class="btn btn-primary btn-sm">
                 <i class="bi bi-plus-lg me-1"></i> Add Artwork
@@ -59,7 +76,7 @@
                                 <td>
                                     <div class="d-flex align-items-center">
                                         <img src="{{ asset('storage/' . $artwork->artist_image) }}" 
-                                             class="artwork-thumb me-3" 
+                                             class="artwork-thumb me-3" width="40" hight="40"
                                              alt="Starry Night">
                                         <div>
                                             <strong>{{$artwork->title}}</strong>
@@ -81,15 +98,15 @@
                                 <td>{{$artwork->category->name}}</td>
                                 <td class="text-end">
                                     <div class="btn-group btn-group-sm">
-                                        <button class="btn btn-outline-primary">
+
+                                   <a href="{{ route('artwork.show', $artwork->id) }}" class="btn btn-outline-primary">
+        <i class="bi bi-eye"></i>
+    </a>      
+                                        {{-- <button class="btn btn-outline-primary">
                                             <i class="bi bi-eye"></i>
-                                        </button>
-                                        <button class="btn btn-outline-success">
-                                            <i class="bi bi-pencil"></i>
-                                        </button>
-                                        <button class="btn btn-outline-danger" onclick="showError('Delete functionality would be implemented in backend')">
-                                            <i class="bi bi-trash"></i>
-                                        </button>
+                                        </button> --}}
+                                        <a class="btn btn-outline-success" href="{{ route("artwork.edit",$artwork->id) }}"> <i class="bi bi-pencil"></i></a>
+                                        <a class="btn btn-outline-danger" href="{{ route("artwork.destroy",$artwork->id) }}"> <i class="bi bi-trash"></i></a>
                                     </div>
                                 </td>
                             </tr>

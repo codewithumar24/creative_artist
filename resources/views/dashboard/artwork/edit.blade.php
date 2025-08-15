@@ -8,7 +8,7 @@
                 <a href="#" class="text-dark" onclick="showError('Back to list functionality would be implemented')">
                     <i class="bi bi-arrow-left me-2"></i>
                 </a>
-                <i class="bi bi-brush me-2"></i> Add New Artwork
+                <i class="bi bi-brush me-2"></i> Edit Artwork
             </h5>
         </div>
     </div>
@@ -30,8 +30,9 @@
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
 
-                <form id="artworkForm" onsubmit="return validateForm()" method="POST" action="{{ route("artwork.store") }}" enctype="multipart/form-data">
+                <form id="artworkForm" onsubmit="return validateForm()" method="POST" action="{{ route('artwork.update', $artwork->id) }}" enctype="multipart/form-data">
                     @csrf
+                    
                     <!-- Title Field -->
                     <div class="mb-4">
                         <label for="title" class="form-label">Artwork Title <span class="text-danger">*</span></label>
@@ -39,6 +40,7 @@
                                class="form-control" 
                                id="title" 
                                name="title" 
+                               value="{{ old('title', $artwork->title) }}"
                                placeholder="e.g. Starry Night"
                                required>
                         <div class="invalid-feedback d-none" id="titleError">Please enter a valid title</div>
@@ -50,7 +52,7 @@
                         <textarea class="form-control" 
                                   id="description" 
                                   name="description" 
-                                  rows="3"></textarea>
+                                  rows="3">{{ old('description', $artwork->description) }}</textarea>
                         <div class="invalid-feedback d-none" id="descriptionError">Description is too long</div>
                     </div>
 
@@ -61,6 +63,7 @@
                                class="form-control" 
                                id="medium" 
                                name="medium" 
+                               value="{{ old('medium', $artwork->medium) }}"
                                placeholder="e.g. Oil on canvas"
                                required>
                         <div class="invalid-feedback d-none" id="mediumError">Please specify the medium</div>
@@ -68,14 +71,19 @@
 
                     <!-- Artwork Image -->
                     <div class="mb-4">
-                        <label for="image" class="form-label">Artwork Image <span class="text-danger">*</span></label>
+                        <label for="image" class="form-label">Artwork Image</label>
                         <input type="file" 
                                class="form-control" 
                                id="image" 
                                name="image"
-                               accept="image/*"
-                               required>
+                               accept="image/*">
                         <div class="invalid-feedback d-none" id="imageError">Please select an image file</div>
+                        @if($artwork->image)
+                            <div class="mt-2">
+                                <small>Current Image:</small>
+                                <img src="{{ asset('storage/' . $artwork->image) }}" alt="Current artwork" class="img-thumbnail mt-1" style="max-height: 150px;">
+                            </div>
+                        @endif
                     </div>
 
                     <!-- Artist Name -->
@@ -85,6 +93,7 @@
                                class="form-control" 
                                id="artist_name" 
                                name="artist_name" 
+                               value="{{ old('artist_name', $artwork->artist_name) }}"
                                placeholder="e.g. Vincent van Gogh"
                                required>
                         <div class="invalid-feedback d-none" id="artistNameError">Please enter artist name</div>
@@ -92,13 +101,19 @@
 
                     <!-- Artist Image -->
                     <div class="mb-4">
-                        <label for="artist_image" class="form-label">Artist Image (Optional)</label>
+                        <label for="artist_image" class="form-label">Artist Image</label>
                         <input type="file" 
                                class="form-control" 
                                id="artist_image" 
                                name="artist_image"
                                accept="image/*">
                         <div class="invalid-feedback d-none" id="artistImageError">Invalid image format</div>
+                        @if($artwork->artist_image)
+                            <div class="mt-2">
+                                <small>Current Image:</small>
+                                <img src="{{ asset('storage/' . $artwork->artist_image) }}" alt="Current artist image" class="img-thumbnail mt-1" style="max-height: 150px;">
+                            </div>
+                        @endif
                     </div>
 
                     <!-- Category Selection -->
@@ -108,9 +123,11 @@
                                 id="category_id" 
                                 name="category_id"
                                 required>
-                                <option value="">Select a category</option>
-                            @foreach ($categorys as $category)  
-                            <option value="{{ $category->id }}">{{$category->name}}</option>
+                            <option value="">Select a category</option>
+                            @foreach ($categories as $category)  
+                            <option value="{{ $category->id }}" {{ $artwork->category_id == $category->id ? 'selected' : '' }}>
+                                {{ $category->name }}
+                            </option>
                             @endforeach
                         </select>
                         <div class="invalid-feedback d-none" id="categoryError">Please select a category</div>
@@ -118,11 +135,11 @@
 
                     <!-- Form Actions -->
                     <div class="d-flex justify-content-between pt-3 border-top">
-                        <a href="{{ route("artwork.index") }}" class="btn btn-outline-secondary" onclick="showError('Cancel functionality would be implemented')">
+                        <a href="{{ route('artwork.index') }}" class="btn btn-outline-secondary">
                             <i class="bi bi-x-lg me-1"></i> Cancel
                         </a>
                         <button type="submit" class="btn btn-primary">
-                            <i class="bi bi-check-lg me-1"></i> Add Artwork
+                            <i class="bi bi-check-lg me-1"></i> Update Artwork
                         </button>
                     </div>
                 </form>
@@ -150,7 +167,7 @@
 
 @push('scripts')
 <script>
-    // Demo form validation
+    // Form validation
     function validateForm() {
         let isValid = true;
         
@@ -191,20 +208,23 @@
             isValid = false;
         }
         
+        // For edit form, image is not required
         const image = document.getElementById('image');
-        if (!image.files.length) {
-            image.classList.add('is-invalid');
-            document.getElementById('imageError').classList.remove('d-none');
-            isValid = false;
+        if (image.files.length > 0) {
+            const validTypes = ['image/jpeg', 'image/png', 'image/gif'];
+            if (!validTypes.includes(image.files[0].type)) {
+                image.classList.add('is-invalid');
+                document.getElementById('imageError').textContent = 'Please select a valid image (JPEG, PNG, GIF)';
+                document.getElementById('imageError').classList.remove('d-none');
+                isValid = false;
+            }
         }
         
-        if (isValid) {
-            showSuccess('Form validation passed! Backend would process this in real implementation.');
-        } else {
+        if (!isValid) {
             showError('Please fix the errors in the form');
         }
         
-        return false; // Prevent actual form submission
+        return isValid;
     }
     
     function showError(message) {

@@ -21,8 +21,8 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <i class="bi bi-star"></i> Featured
+                    <a class="nav-link" href="{{ route("artist.index") }}">
+                        <i class="bi bi-star"></i> Artist
                     </a>
                 </li>
                 <li class="nav-item">

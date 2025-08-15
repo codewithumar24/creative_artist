@@ -35,8 +35,40 @@
                         </ul>
                     </div>
                 </div>
-                
-                <div class="row mt-4 gallery-items">
+
+   <div class="row mt-5 gallery-items">
+    @foreach ($artworks as $artwork)
+        <div class="col-md-6 col-lg-4 mb-4 animate-on-scroll">
+            <div class="artwork-card">
+                <div class="artwork-img-container">
+                    <img src="{{ asset('storage/'.$artwork->image) }}" alt="{{ $artwork->title }}" class="artwork-img">
+                </div>
+                <div class="artwork-info">
+                    <h4>{{ $artwork->title }}</h4>
+                    <p class="text-muted">{{ $artwork->description }}</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <a href="artist-profile.html" class="text-decoration-none artist-link">
+                            <div class="d-flex align-items-center">
+                                <div class="artist-avatar-container">
+                                    <img src="{{ asset('storage/'.$artwork->artist_image) }}" 
+                                         alt="{{ $artwork->artist_name }}" 
+                                         class="artist-avatar">
+                                </div>
+                                <span class="artist-name">{{ $artwork->artist_name }}</span>
+                            </div>
+                        </a>
+                        <span class="badge bg-primary">{{ $artwork->category->name }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endforeach
+</div> 
+
+
+
+
+                {{-- <div class="row mt-4 gallery-items">
                     <!-- Artwork items will be loaded here -->
                     @foreach ($artworks as $artwork)
                         <div class="col-md-6 col-lg-4 mb-4 gallery-item" data-category="painting">
@@ -60,7 +92,7 @@
                         </div>
                     </div>
                     @endforeach
-                </div>
+                </div> --}}
                 
                 <div class="text-center mt-4">
                     <button class="btn btn-primary" id="load-more">Load More</button>

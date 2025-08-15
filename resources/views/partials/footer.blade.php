@@ -26,8 +26,8 @@
                 <div class="col-lg-2 col-md-6 mb-5 mb-md-0">
                     <h4 class="footer-title">For Artists</h4>
                     <div class="footer-links mt-4">
-                        <a href="register.html">Join Now</a>
-                        <a href="login.html">Login</a>
+                        <a href="{{ route("auth.register") }}">Join Now</a>
+                        <a href="{{ route("login") }}">Login</a>
                         <a href="#">Pricing</a>
                         <a href="#">Help Center</a>
                         <a href="#">Sell Artwork</a>

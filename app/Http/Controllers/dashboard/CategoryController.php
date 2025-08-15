@@ -20,7 +20,7 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|max:20|unique:categories,name'
+            'name' => 'required|string|max:20|unique:categories,name'
         ]);
         Category::create([
             'name' => $request->input("name")
