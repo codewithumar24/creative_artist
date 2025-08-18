@@ -10,11 +10,18 @@
                         <i class="bi bi-speedometer2"></i> Dashboard
                     </a>
                 </li>
-                <li class="nav-item">
+
+ @if(Auth::user()->isAdmin())
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('admin.users.index') }}"><i class="bi bi-people"></i> Users</a>
+            </li>
+        @endif
+
+                {{-- <li class="nav-item">
                     <a class="nav-link" href="#">
                         <i class="bi bi-people"></i> Users
                     </a>
-                </li>
+                </li> --}}
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route("artwork.index") }}">
                         <i class="bi bi-brush"></i> Artwork
@@ -41,6 +48,26 @@
                         <i class="bi bi-collection"></i> Categories
                     </a>
                 </li>
+
+{{-- links --}}
+
+<ul class="navbar-nav me-auto">
+    @auth
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('profile.show') }}">Profile</a>
+        </li>
+        {{-- @if(Auth::user()->isAdmin())
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('admin.users.index') }}">Manage Users</a>
+            </li>
+        @endif --}}
+    @endauth
+</ul>
+
+
+
+
+                
                 <li class="nav-item">
                     <a class="nav-link" href="#">
                         <i class="bi bi-credit-card"></i> Payments

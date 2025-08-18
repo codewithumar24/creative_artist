@@ -1,11 +1,13 @@
 <?php
 
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\dashboard\ArtistController;
 use App\Http\Controllers\dashboard\ArtworkController;
 use App\Http\Controllers\dashboard\CategoryController;
 use App\Http\Controllers\dashboard\DashboardController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 //home Routes
@@ -25,7 +27,7 @@ Route::post("/store", [AuthController::class, "login"])->name("auth.loginStore")
 Route::post("/logout", [AuthController::class, "logout"])->name("auth.logout");
 
 
-//dashboard Routes
+// All dashboard Routes
 
 //category controller
 Route::middleware(['auth','is_Admin'])->prefix('/dashboard')->group(function () {
@@ -56,3 +58,30 @@ Route::middleware(['auth','is_Admin'])->prefix('/dashboard')->group(function () 
     Route::get("/artist/delete/{id}",[ArtistController::class,"destroy"])->name("artist.destroy");
     Route::get('/artist/{artist}', [ArtistController::class, 'show'])->name('artist.show');
 });
+
+
+
+Route::middleware(['auth'])->group(function () {
+    // Profile routes
+    Route::prefix('profile')->group(function () {
+        Route::get('/', [ProfileController::class, 'show'])->name('profile.show');
+        Route::get('/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+        Route::put('/update', [ProfileController::class, 'update'])->name('profile.update');
+        Route::delete('/delete', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    });
+
+    // Admin routes
+    Route::middleware(['is_Admin'])->prefix('admin')->group(function () {
+        Route::resource('users', UserController::class)->names([
+            'index' => 'admin.users.index',
+            'create' => 'admin.users.create',
+            'store' => 'admin.users.store',
+            'show' => 'admin.users.show',
+            'edit' => 'admin.users.edit',
+            'update' => 'admin.users.update',
+            'destroy' => 'admin.users.destroy'
+        ]);
+    });
+});
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home.index');

@@ -34,12 +34,9 @@ class ArtistController extends Controller
         ]);
 
         try {
-            // Handle file upload
             if ($request->hasFile('avatar')) {
                 $validated['avatar'] = $request->file('avatar')->store('artists/avatars', 'public');
             }
-
-            // Create the artist
             $artist = Artist::create($validated);
 
             return redirect()->route('artist.index')->with([
@@ -52,15 +49,12 @@ class ArtistController extends Controller
         }
     }
 
-
-    // Show the edit form
     public function edit(string $id)
     {
         $artist = Artist::findOrFail($id);
         return view('dashboard.artist.edit', compact('artist'));
     }
 
-    // Handle the update request
     public function update(Request $request, string $id)
     {
         $artist = Artist::findOrFail($id);
@@ -79,9 +73,7 @@ class ArtistController extends Controller
         ]);
 
         try {
-            // Handle file upload if new avatar provided
             if ($request->hasFile('avatar')) {
-                // Delete old avatar if it exists
                 if ($artist->avatar && Storage::disk('public')->exists($artist->avatar)) {
                     Storage::disk('public')->delete($artist->avatar);
                 }
@@ -116,7 +108,7 @@ class ArtistController extends Controller
     public function show(string $id)
 {
     $artist = Artist::with(['artworks' => function($query) {
-        $query->latest()->take(5); // Show 5 most recent artworks
+        $query->latest()->take(5);
     }])->findOrFail($id);
 
     return view('dashboard.artist.show', compact('artist'));

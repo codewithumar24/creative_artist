@@ -1,4 +1,3 @@
-<!-- resources/views/dashboard/artists/create.blade.php -->
 @extends('dashboard.dashboardLayout')
 
 @section('mainDashboard')
@@ -27,38 +26,38 @@
                <form id="artistForm" method="POST" action="{{ route('artist.store')}}" enctype="multipart/form-data">
                      @csrf
                      <div class="row">
-                        <!-- Left Column -->
+                      
                         <div class="col-md-6">
-                            <!-- Name -->
+                     
                             <div class="mb-3">
                                 <label for="name" class="form-label">Full Name <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="name" name="name" required>
                                 <div class="invalid-feedback d-none" id="nameError">Please enter the artist's name</div>
                             </div>
 
-                            <!-- Specialty -->
+                        
                             <div class="mb-3">
                                 <label for="specialty" class="form-label">Primary Specialty <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="specialty" name="specialty" required>
                                 <div class="invalid-feedback d-none" id="specialtyError">Please specify the artist's specialty</div>
                             </div>
 
-                            <!-- Location -->
+                          
                             <div class="mb-3">
                                 <label for="location" class="form-label">Location</label>
                                 <input type="text" class="form-control" id="location" name="location">
                             </div>
 
-                            <!-- Bio -->
+                           
                             <div class="mb-3">
                                 <label for="bio" class="form-label">Artist Bio</label>
                                 <textarea class="form-control" id="bio" name="bio" rows="4"></textarea>
                             </div>
                         </div>
 
-                        <!-- Right Column -->
+                       
                         <div class="col-md-6">
-                            <!-- Avatar Upload -->
+                           
                             <div class="mb-3">
                                 <label for="avatar" class="form-label">Profile Image <span class="text-danger">*</span></label>
                                 <input type="file" class="form-control" id="avatar" name="avatar" accept="image/*" required>
@@ -66,7 +65,6 @@
                                 <div class="form-text">Recommended size: 500x500 pixels</div>
                             </div>
 
-                            <!-- Social Media Links -->
                             <div class="mb-3">
                                 <label class="form-label">Social Media Links</label>
                                 
@@ -98,7 +96,7 @@
                         </div>
                     </div>
 
-                    <!-- Form Actions -->
+                  
                     <div class="d-flex justify-content-between pt-3 border-top">
                         <button type="button" class="btn btn-outline-secondary" onclick="history.back()">
                             <i class="bi bi-x-lg me-1"></i> Cancel
@@ -140,15 +138,12 @@
     document.getElementById('artistForm').addEventListener('submit', function(e) {
     e.preventDefault();
     
-    // Reset previous errors
     document.querySelectorAll('.is-invalid').forEach(el => {
         el.classList.remove('is-invalid');
     });
     document.querySelectorAll('.invalid-feedback').forEach(el => {
         el.classList.add('d-none');
     });
-
-    // Client-side validation
     let isValid = true;
     const requiredFields = ['name', 'specialty', 'avatar'];
     
@@ -163,7 +158,6 @@
         }
     });
 
-    // Validate URLs if provided
     const urlFields = ['instagram', 'twitter', 'behance', 'dribbble', 'website'];
     urlFields.forEach(fieldId => {
         const field = document.getElementById(fieldId);

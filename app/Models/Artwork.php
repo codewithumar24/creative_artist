@@ -16,9 +16,13 @@ class Artwork extends Model
         'category_id',
     ];
 
-    // Relationship
     public function category()
     {
         return $this->belongsTo(Category::class);
     }
+ 
+    public function artist()
+{
+    return $this->belongsTo(User::class);
+}
 }

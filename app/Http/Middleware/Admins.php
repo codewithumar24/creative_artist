@@ -20,7 +20,7 @@ class Admins
         if (Auth::check() && Auth::user()->role === 'admin') {
             return $next($request);
         }else{
-           return redirect()->route('home.index') // Home route par redirect
+           return redirect()->route('home.index')
         ->with('error', 'You are not authorized to access this page.');
         }
     }

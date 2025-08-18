@@ -109,7 +109,63 @@
 
             <!-- Recent Users and Artwork -->
             <div class="row">
-                <div class="col-lg-6">
+
+
+<div class="col-lg-6">
+    <div class="card dashboard-card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">Recent Users</h5>
+            <a href="{{ route('admin.users.index') }}" class="btn btn-sm btn-outline-primary">View All</a>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table data-table">
+                    <thead>
+                        <tr>
+                            <th>User</th>
+                            <th>Joined</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($recentUsers as $user)
+                        <tr>
+                          <td>
+    <div class="d-flex align-items-center">
+        @if($user->avatar)
+            <img src="{{ asset('storage/avatars/'.$user->avatar) }}" class="user-avatar me-2">
+        @else
+            <img src="https://ui-avatars.com/api/?name={{ urlencode($user->name) }}&color=7F9CF5&background=EBF4FF" class="user-avatar me-2">
+        @endif
+        <div>
+            <h6 class="mb-0">{{ $user->name }}</h6>
+            <small class="text-muted">{{ $user->email }}</small>
+        </div>
+    </div>
+</td>
+                            <td>{{ $user->created_at->diffForHumans() }}</td>
+                            <td>
+                                <span class="badge bg-{{ $user->email_verified_at ? 'success' : 'warning text-dark' }}">
+                                    {{ $user->email_verified_at ? 'Active' : 'Pending' }}
+                                </span>
+                            </td>
+                            <td>
+                                <a href="{{ route('admin.users.show', $user->id) }}" class="btn btn-sm btn-outline-primary">
+                                    <i class="bi bi-eye"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+                {{-- <div class="col-lg-6">
                     <div class="card dashboard-card">
                         <div class="card-header d-flex justify-content-between align-items-center">
                             <h5 class="mb-0">Recent Users</h5>
@@ -186,8 +242,80 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-6">
+                </div> --}}
+
+
+<div class="col-lg-6">
+    <div class="card dashboard-card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">Recent Artwork</h5>
+            <a href="{{ route('artwork.index') }}" class="btn btn-sm btn-outline-primary">View All</a>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table data-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th> <!-- Added ID column -->
+                            <th>Artwork</th>
+                            <th>Artist</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($recentArtworks as $artwork)
+                        <tr>
+                            <td>{{ $artwork->id }}</td> <!-- Display artwork ID -->
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    @if($artwork->image)
+                                        <img src="{{ asset('storage/'.$artwork->image) }}" class="artwork-thumb me-2" alt="{{ $artwork->title }}">
+                                    @else
+                                        <img src="https://via.placeholder.com/100x100?text=No+Image" class="artwork-thumb me-2" alt="No Image">
+                                    @endif
+                                    <div>
+                                        <h6 class="mb-0">{{ $artwork->title }}</h6>
+                                        <small class="text-muted">{{ $artwork->medium }}</small>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <!-- Option 1: If using artist_name field -->
+                                {{ $artwork->artist_name }}
+                                
+                                <!-- Option 2: If using artist relationship -->
+                                {{-- $artwork->artist->name ?? 'Unknown' --}}
+                                
+                                @if($artwork->artist_image)
+                                    <img src="{{ asset('storage/'.$artwork->artist_image) }}" class="artist-thumb ms-2" width="30">
+                                @endif
+                            </td>
+                            <td>
+                                @php
+                                    $status = $artwork->status ?? 'pending'; // Default status
+                                @endphp
+                                <span class="badge bg-{{ $status === 'approved' ? 'success' : ($status === 'pending' ? 'warning text-dark' : 'secondary') }}">
+                                    {{ ucfirst($status) }}
+                                </span>
+                            </td>
+                            <td>
+                                <a href="{{ route('artwork.show', $artwork->id) }}" class="btn btn-sm btn-outline-primary">
+                                    <i class="bi bi-eye"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+                {{-- <div class="col-lg-6">
                     <div class="card dashboard-card">
                         <div class="card-header d-flex justify-content-between align-items-center">
                             <h5 class="mb-0">Recent Artwork</h5>
@@ -264,7 +392,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
             </div>
 
             <!-- Recent Activity and Messages -->

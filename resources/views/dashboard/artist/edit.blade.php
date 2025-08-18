@@ -33,9 +33,8 @@
                     @csrf
                     
                     <div class="row">
-                        <!-- Left Column -->
                         <div class="col-md-6">
-                            <!-- Name -->
+                          
                             <div class="mb-3">
                                 <label for="name" class="form-label">Full Name <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control @error('name') is-invalid @enderror" 
@@ -44,8 +43,6 @@
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
-
-                            <!-- Specialty -->
                             <div class="mb-3">
                                 <label for="specialty" class="form-label">Primary Specialty <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control @error('specialty') is-invalid @enderror" 
@@ -54,8 +51,6 @@
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
-
-                            <!-- Location -->
                             <div class="mb-3">
                                 <label for="location" class="form-label">Location</label>
                                 <input type="text" class="form-control @error('location') is-invalid @enderror" 
@@ -65,7 +60,7 @@
                                 @enderror
                             </div>
 
-                            <!-- Bio -->
+                          
                             <div class="mb-3">
                                 <label for="bio" class="form-label">Artist Bio</label>
                                 <textarea class="form-control @error('bio') is-invalid @enderror" 
@@ -76,9 +71,8 @@
                             </div>
                         </div>
 
-                        <!-- Right Column -->
                         <div class="col-md-6">
-                            <!-- Avatar Upload -->
+                           
                             <div class="mb-3">
                                 <label for="avatar" class="form-label">Profile Image</label>
                                 <input type="file" class="form-control @error('avatar') is-invalid @enderror" 
@@ -98,8 +92,6 @@
                                 </div>
                                 @endif
                             </div>
-
-                            <!-- Social Media Links -->
                             <div class="mb-3">
                                 <label class="form-label">Social Media Links</label>
                                 
@@ -160,8 +152,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <!-- Form Actions -->
                     <div class="d-flex justify-content-between pt-3 border-top">
                         <a href="{{ route('artist.index') }}" class="btn btn-outline-secondary">
                             <i class="bi bi-x-lg me-1"></i> Cancel
@@ -200,11 +190,10 @@
 
 @push('scripts')
 <script>
-    // Same validation script as create form
+   
     document.getElementById('artistForm').addEventListener('submit', function(e) {
         e.preventDefault();
         
-        // Reset previous errors
         document.querySelectorAll('.is-invalid').forEach(el => {
             el.classList.remove('is-invalid');
         });
@@ -212,7 +201,7 @@
             el.classList.add('d-none');
         });
 
-        // Client-side validation
+        
         let isValid = true;
         const requiredFields = ['name', 'specialty'];
         
@@ -227,7 +216,6 @@
             }
         });
 
-        // Validate URLs if provided
         const urlFields = ['instagram', 'twitter', 'behance', 'dribbble', 'website'];
         urlFields.forEach(fieldId => {
             const field = document.getElementById(fieldId);

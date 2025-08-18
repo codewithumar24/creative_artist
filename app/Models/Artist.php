@@ -19,9 +19,6 @@ class Artist extends Model
         'website'
     ];
 
-    /**
-     * Get the URL to the artist's avatar image.
-     */
     public function getAvatarUrl()
     {
         if ($this->avatar) {
@@ -30,9 +27,7 @@ class Artist extends Model
         return 'https://randomuser.me/api/portraits/' . (rand(0, 1) ? 'men' : 'women') . '/' . rand(1, 99) . '.jpg';
     }
 
-    /**
-     * Get the artist's social links as an array.
-     */
+    
     public function getSocialLinks()
     {
         return [
@@ -44,9 +39,7 @@ class Artist extends Model
         ];
     }
 
-    /**
-     * Scope a query to search for artists.
-     */
+
     public function scopeSearch($query, $search)
     {
         return $query->where('name', 'like', '%' . $search . '%')
