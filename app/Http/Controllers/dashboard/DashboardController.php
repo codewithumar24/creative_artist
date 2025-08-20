@@ -18,10 +18,11 @@ class DashboardController extends Controller
  $recentArtworks = Artwork::latest()
                           ->take(3)
                           ->get();
-        if (Gate::allows("is_admin")) {
-            return view("dashboard.index", compact('recentUsers','recentArtworks'));
-        } else {
-            abort(403, 'You are not allow to thsi page');
-        }
+                           return view("dashboard.index", compact('recentUsers','recentArtworks'));
+        // if (Gate::allows("is_admin")) {
+        //     return view("dashboard.index", compact('recentUsers','recentArtworks'));
+        // } else {
+        //     abort(403, 'You are not allow to thsi page');
+        // }
     }
 }

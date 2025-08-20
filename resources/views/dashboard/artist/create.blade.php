@@ -29,11 +29,11 @@
                       
                         <div class="col-md-6">
                      
-                            <div class="mb-3">
+                            {{-- <div class="mb-3">
                                 <label for="name" class="form-label">Full Name <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="name" name="name" required>
                                 <div class="invalid-feedback d-none" id="nameError">Please enter the artist's name</div>
-                            </div>
+                            </div> --}}
 
                         
                             <div class="mb-3">
@@ -58,12 +58,12 @@
                        
                         <div class="col-md-6">
                            
-                            <div class="mb-3">
+                            {{-- <div class="mb-3">
                                 <label for="avatar" class="form-label">Profile Image <span class="text-danger">*</span></label>
                                 <input type="file" class="form-control" id="avatar" name="avatar" accept="image/*" required>
                                 <div class="invalid-feedback d-none" id="avatarError">Please upload a profile image</div>
                                 <div class="form-text">Recommended size: 500x500 pixels</div>
-                            </div>
+                            </div> --}}
 
                             <div class="mb-3">
                                 <label class="form-label">Social Media Links</label>

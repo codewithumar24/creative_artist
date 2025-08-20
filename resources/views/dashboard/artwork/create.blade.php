@@ -79,7 +79,7 @@
                     </div>
 
                     <!-- Artist Name -->
-                    <div class="mb-4">
+                    {{-- <div class="mb-4">
                         <label for="artist_name" class="form-label">Artist Name <span class="text-danger">*</span></label>
                         <input type="text" 
                                class="form-control" 
@@ -88,10 +88,10 @@
                                placeholder="e.g. Vincent van Gogh"
                                required>
                         <div class="invalid-feedback d-none" id="artistNameError">Please enter artist name</div>
-                    </div>
+                    </div> --}}
 
                     <!-- Artist Image -->
-                    <div class="mb-4">
+                    {{-- <div class="mb-4">
                         <label for="artist_image" class="form-label">Artist Image (Optional)</label>
                         <input type="file" 
                                class="form-control" 
@@ -99,7 +99,7 @@
                                name="artist_image"
                                accept="image/*">
                         <div class="invalid-feedback d-none" id="artistImageError">Invalid image format</div>
-                    </div>
+                    </div> --}}
 
                     <!-- Category Selection -->
                     <div class="mb-4">

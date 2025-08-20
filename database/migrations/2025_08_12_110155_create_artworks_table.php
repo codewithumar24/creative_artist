@@ -17,8 +17,6 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->string('medium');
             $table->string('image'); // artwork image path
-            $table->string('artist_name');
-            $table->string('artist_image')->nullable();
             $table->foreignId('category_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });

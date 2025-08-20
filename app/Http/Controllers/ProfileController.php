@@ -47,7 +47,7 @@ class ProfileController extends Controller
         
         // Store new avatar
         $path = $request->file('avatar')->store('avatars', 'public');
-        $user->avatar = basename($path); // Store only filename
+        $user->avatar = $path; // Store only filename
     }
 
     if ($request->password) {
@@ -59,27 +59,6 @@ class ProfileController extends Controller
     return redirect()->route('profile.show')->with('success', 'Profile updated successfully!');
 }
 
-        // if ($request->hasFile('avatar')) {
-        //     if ($user->avatar) {
-
-
-
-        //         Storage::delete('public/avatars/' . $user->avatar);
-        //     }
-        //     $avatarName = time().'.'.$request->avatar->extension();
-        //     $request->avatar->storeAs('public/avatars', $avatarName);
-        //     $user->avatar = $avatarName;
-        // }
-
-        // if ($request->password) {
-        //     $user->password = Hash::make($request->password);
-        // }
-
-        // // $user->save();
-        // $user->save();
-
-        // return redirect()->route('profile.show')->with('success', 'Profile updated successfully!');
-    
 
     public function destroy()
     {

@@ -23,5 +23,6 @@ class Admins
            return redirect()->route('home.index')
         ->with('error', 'You are not authorized to access this page.');
         }
+        
     }
 }

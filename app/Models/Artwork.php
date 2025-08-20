@@ -11,8 +11,7 @@ class Artwork extends Model
         'description',
         'medium',
         'image',
-        'artist_name',
-        'artist_image',
+        'user_id',
         'category_id',
     ];
 
@@ -20,9 +19,18 @@ class Artwork extends Model
     {
         return $this->belongsTo(Category::class);
     }
- 
+
     public function artist()
+    {
+        return $this->belongsTo(User::class);
+    }
+    // public function user()
+    // {
+    //     return $this->belongsTo(User::class);
+    // }
+
+    public function user()
 {
-    return $this->belongsTo(User::class);
+    return $this->belongsTo(User::class, 'user_id');
 }
 }

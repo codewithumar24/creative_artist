@@ -87,7 +87,7 @@
                     </div>
 
                     <!-- Artist Name -->
-                    <div class="mb-4">
+                    {{-- <div class="mb-4">
                         <label for="artist_name" class="form-label">Artist Name <span class="text-danger">*</span></label>
                         <input type="text" 
                                class="form-control" 
@@ -97,10 +97,10 @@
                                placeholder="e.g. Vincent van Gogh"
                                required>
                         <div class="invalid-feedback d-none" id="artistNameError">Please enter artist name</div>
-                    </div>
+                    </div> --}}
 
                     <!-- Artist Image -->
-                    <div class="mb-4">
+                    {{-- <div class="mb-4">
                         <label for="artist_image" class="form-label">Artist Image</label>
                         <input type="file" 
                                class="form-control" 
@@ -114,7 +114,7 @@
                                 <img src="{{ asset('storage/' . $artwork->artist_image) }}" alt="Current artist image" class="img-thumbnail mt-1" style="max-height: 150px;">
                             </div>
                         @endif
-                    </div>
+                    </div> --}}
 
                     <!-- Category Selection -->
                     <div class="mb-4">

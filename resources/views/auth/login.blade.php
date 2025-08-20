@@ -44,10 +44,12 @@
                                 <div class="text-center mt-4">
                                     <p>Don't have an account? <a href="{{ route("auth.register") }}">Sign up</a></p>
                                 </div>
-                                <div class="divider my-4">OR</div>
-                                <button type="button" class="btn btn-outline-secondary w-100 mb-2">
+                                <div class="divider my-4 text-center">OR</div>
+                               <a class="btn btn-outline-secondary w-100 mb-2" href="{{ route("google.login") }}"><i class="fab fa-google me-2"></i> Continue with Google</a>
+
+                                {{-- <button type="button" class="btn btn-outline-secondary w-100 mb-2">
                                     <i class="fab fa-google me-2"></i> Continue with Google
-                                </button>
+                                </button> --}}
                                 <button type="button" class="btn btn-outline-secondary w-100">
                                     <i class="fab fa-facebook-f me-2"></i> Continue with Facebook
                                 </button>
@@ -58,5 +60,4 @@
             </div>
         </section>
     </div>
-
 @endsection

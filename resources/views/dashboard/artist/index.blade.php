@@ -89,15 +89,15 @@
                           @foreach ($artists as $artist)
                                 <tr>
                                 <td>
-                                    <img src="{{ asset("storage/". $artist->avatar) }}" 
+                                    <img src="{{ asset("storage/". $artist->user->avatar) }}" 
                                          class="rounded-circle" 
                                          width="50" 
                                          height="50" 
                                          alt="Artist">
                                 </td>
                                 <td>
-                                    <strong>{{$artist->name}}</strong>
-                                    <div class="text-muted small">{{$artist->email}}</div>
+                                    <strong>{{$artist->user->name}}</strong>
+                                    <div class="text-muted small">{{$artist->user->email}}</div>
                                 </td>
                                 <td>{{$artist->specialty}}</td>
                                 <td>{{$artist->location}}</td>

@@ -10,6 +10,7 @@ class CategoryController extends Controller
 {
     public function index()
     {
+         $this->authorize('viewAny', Category::class);
         $category = Category::all();
         return view("dashboard.category.index", ['categories' => $category]);
     }
@@ -32,11 +33,13 @@ class CategoryController extends Controller
 
     public function edit($id)
     {
+        $this->authorize('edit', $id);
         $category = Category::findOrFail($id);
         return view("dashboard.category.edit", ['category' => $category]);
     }
     public function update(Request $request, $id)
     {
+        $this->authorize('update',$id);
         $request->validate([
             'name' => 'required|max:20|unique:categories'
         ]);
@@ -50,6 +53,7 @@ class CategoryController extends Controller
 
     public function destroy($id)
     {
+        $this->authorize('delete',$id);
         $cats = Category::findOrFail($id);
         $cats->delete();
         return redirect()->route("category.index")->with([

@@ -13,11 +13,9 @@ return new class extends Migration
     {
         Schema::create('artists', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
             $table->string('specialty');
             $table->text('bio')->nullable();
             $table->string('location')->nullable();
-            $table->string('avatar');
             $table->string('instagram')->nullable();
             $table->string('twitter')->nullable();
             $table->string('behance')->nullable();

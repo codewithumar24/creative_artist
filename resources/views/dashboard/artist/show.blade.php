@@ -18,11 +18,11 @@
             <div class="col-md-4">
                 <div class="card dashboard-card mb-4">
                     <div class="card-body text-center">
-                        <img src="{{ $artist->getAvatarUrl() }}" 
-                             class="rounded-circle mb-3" 
-                             width="150" 
-                             height="150" 
-                             alt="{{ $artist->name }}">
+                        <img src="{{ asset('storage/' . $artist->avatar) }}" 
+                                   class="rounded-circle mb-3" 
+                                    width="150" 
+                                    height="150" 
+                                    alt="{{ $artist->name }}">
                         
                         <h3>{{ $artist->name }}</h3>
                         <p class="text-muted mb-1">{{ $artist->specialty }}</p>

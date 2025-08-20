@@ -5,6 +5,7 @@ namespace App\Http\Controllers\dashboard;
 use App\Http\Controllers\Controller;
 use App\Models\Artwork;
 use App\Models\Category;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -15,8 +16,10 @@ class ArtworkController extends Controller
      */
     public function index()
     {
-        $artwork = Artwork::all();
-        return view("dashboard.artwork.index", ['artworks' => $artwork]);
+        $artworks = auth()->user()->artworks;
+        // $artwork = Artwork::all();
+        // $artworks = $user->artworks()->with('category')->latest()->get();
+        return view("dashboard.artwork.index", ['artworks' => $artworks]);
     }
 
     /**
@@ -31,34 +34,34 @@ class ArtworkController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
-        $request->validate([
-            'title' => 'required|string|max:100|unique:artworks',
-            'description' => 'required|string|max:200',
-            'medium' => 'required|string',
-            'image' => 'required|string|max:2048|mimes: jpg,jpeg,png',
-            'artist_name' => 'required|string',
-            'artist_image' => 'required|max:2048|string|mimes: jpg,jpeg,png',
-            'category_id' => 'required'
-        ]);
+   public function store(Request $request)
+{
+    $validated = $request->validate([
+        'title' => 'required|string|max:255',
+        'description' => 'nullable|string',
+        'medium' => 'required|string|max:255',
+        'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+    
+        'category_id' => 'required|exists:categories,id',
+    ]);
 
-        $path = $request->file("image")->store("uploads", "public");
-        $artistImagePath = $request->file("artist_image") ? $request->file("artist_image")->store("uploads", "public") : null;
+    // image upload
+    $imagePath = $request->file('image')->store('uploads/artworks', 'public');
 
-        Artwork::create([
-            'title' => $request->input("title"),
-            'description' => $request->input("description"),
-            'medium' => $request->input("medium"),
-            'image' => $path,
-            'artist_name' => $request->input("artist_name"),
-            'artist_image' => $artistImagePath,
-            'category_id' => $request->input("category_id"),
-        ]);
-        return redirect()->route("artwork.index")->with([
-            'success' => 'Artwork created Successfully'
-        ]);
-    }
+    // save data
+    $artwork = new Artwork();
+    $artwork->title = $validated['title'];
+    $artwork->description = $validated['description'] ?? null;
+    $artwork->medium = $validated['medium'];
+    $artwork->image = $imagePath;
+        $artwork->user_id = auth()->id(); 
+    $artwork->category_id = $validated['category_id'];
+    $artwork->save();
+
+    // redirect with success message
+    return redirect()->route('artwork.index')->with('success', 'Artwork added successfully!');
+}
+
 
     /**
      * Display the specified resource.
@@ -74,6 +77,7 @@ class ArtworkController extends Controller
      */
     public function edit(string $id)
     {
+          $this->authorize('update', $id);
         $artwork = Artwork::findOrFail($id);
         $categories = Category::all(); // Make sure to pass categories if needed
         return view("dashboard.artwork.edit", compact('artwork', 'categories'));
@@ -84,6 +88,7 @@ class ArtworkController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $this->authorize('update',$id);
         $artwork = Artwork::findOrFail($id);
 
         $request->validate([
@@ -91,8 +96,6 @@ class ArtworkController extends Controller
             'description' => 'required|string|max:200',
             'medium' => 'required|string',
             'image' => 'sometimes|image|max:2048|mimes:jpg,jpeg,png',
-            'artist_name' => 'required|string',
-            'artist_image' => 'sometimes|image|max:2048|mimes:jpg,jpeg,png',
             'category_id' => 'required|exists:categories,id'
         ]);
 
@@ -101,7 +104,6 @@ class ArtworkController extends Controller
             'title' => $request->input('title'),
             'description' => $request->input('description'),
             'medium' => $request->input('medium'),
-            'artist_name' => $request->input('artist_name'),
             'category_id' => $request->input('category_id'),
         ];
 
@@ -112,13 +114,6 @@ class ArtworkController extends Controller
                 Storage::disk('public')->delete($artwork->image);
             }
             $updateData['image'] = $request->file('image')->store('uploads', 'public');
-        }
-
-        if ($request->hasFile('artist_image')) {
-            if ($artwork->artist_image && Storage::disk('public')->exists($artwork->artist_image)) {
-                Storage::disk('public')->delete($artwork->artist_image);
-            }
-            $updateData['artist_image'] = $request->file('artist_image')->store('uploads', 'public');
         }
 
         // Update the artwork
@@ -134,6 +129,7 @@ class ArtworkController extends Controller
      */
     public function destroy(string $id)
     {
+          $this->authorize('update', $id);
         try {
             $artwork = Artwork::findOrFail($id);
 
@@ -141,9 +137,9 @@ class ArtworkController extends Controller
                 Storage::disk('public')->delete($artwork->image);
             }
 
-            if ($artwork->artist_image && Storage::disk('public')->exists($artwork->artist_image)) {
-                Storage::disk('public')->delete($artwork->artist_image);
-            }
+            // if ($artwork->artist_image && Storage::disk('public')->exists($artwork->artist_image)) {
+            //     Storage::disk('public')->delete($artwork->artist_image);
+            // }
 
             $artwork->delete();
 

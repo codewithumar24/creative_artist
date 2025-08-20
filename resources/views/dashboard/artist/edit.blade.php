@@ -35,14 +35,14 @@
                     <div class="row">
                         <div class="col-md-6">
                           
-                            <div class="mb-3">
+                            {{-- <div class="mb-3">
                                 <label for="name" class="form-label">Full Name <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control @error('name') is-invalid @enderror" 
                                        id="name" name="name" value="{{ old('name', $artist->name) }}" required>
                                 @error('name')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
-                            </div>
+                            </div> --}}
                             <div class="mb-3">
                                 <label for="specialty" class="form-label">Primary Specialty <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control @error('specialty') is-invalid @enderror" 
@@ -73,7 +73,7 @@
 
                         <div class="col-md-6">
                            
-                            <div class="mb-3">
+                            {{-- <div class="mb-3">
                                 <label for="avatar" class="form-label">Profile Image</label>
                                 <input type="file" class="form-control @error('avatar') is-invalid @enderror" 
                                        id="avatar" name="avatar" accept="image/*">
@@ -91,7 +91,7 @@
                                          style="max-height: 150px;">
                                 </div>
                                 @endif
-                            </div>
+                            </div> --}}
                             <div class="mb-3">
                                 <label class="form-label">Social Media Links</label>
                                 

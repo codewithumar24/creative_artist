@@ -75,9 +75,10 @@
                                 <td>{{$artwork->id}}</td>
                                 <td>
                                     <div class="d-flex align-items-center">
-                                        <img src="{{ asset('storage/' . $artwork->artist_image) }}" 
+                                        <img src="{{ asset('storage/' . $artwork->user->avatar) }}" 
                                              class="artwork-thumb me-3" width="40" hight="40"
                                              alt="Starry Night">
+                                             
                                         <div>
                                             <strong>{{$artwork->title}}</strong>
                                             <div class="text-muted small">{{$artwork->description}}</div>

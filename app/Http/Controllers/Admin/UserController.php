@@ -14,7 +14,7 @@ class UserController extends Controller
     {
         // $this->middleware('auth');
         $this->middleware('auth');
-        $this->middleware('is_Admin');
+        // $this->middleware('is_Admin');
     }
 
     public function index()
@@ -50,7 +50,7 @@ class UserController extends Controller
 
          if ($request->hasFile('avatar')) {
         $path = $request->file('avatar')->store('avatars', 'public');
-        $user->avatar = basename($path);
+        $user->avatar = $path;
     }
 
     $user->save();
@@ -96,7 +96,7 @@ class UserController extends Controller
         
         // Store new avatar
         $path = $request->file('avatar')->store('avatars', 'public');
-        $user->avatar = basename($path);
+        $user->avatar = $path;
     }
         if ($request->password) {
             $user->password = Hash::make($request->password);

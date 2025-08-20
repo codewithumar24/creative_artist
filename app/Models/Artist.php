@@ -7,11 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class Artist extends Model
 {
     protected $fillable = [
-        'name',
         'specialty',
         'bio',
+        'user_id',
         'location',
-        'avatar',
         'instagram',
         'twitter',
         'behance',
@@ -50,4 +49,10 @@ class Artist extends Model
     {
         return $this->hasMany(Artwork::class);
     }
+
+
+    public function user()
+{
+    return $this->belongsTo(User::class);
+}
 }

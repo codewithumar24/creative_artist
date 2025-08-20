@@ -20,6 +20,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'google_id',
         'password',
         'phone',
         'bio',
@@ -54,4 +55,18 @@ class User extends Authenticatable
     {
         return $this->role === 'admin';
     }
+
+
+
+/////new update relations 
+public function artist()
+{
+    return $this->hasOne(Artist::class);
+}
+
+public function artworks()
+{
+    return $this->hasMany(Artwork::class);
+}
+
 }

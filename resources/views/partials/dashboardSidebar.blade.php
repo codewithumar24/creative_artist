@@ -11,12 +11,12 @@
                     </a>
                 </li>
 
- @if(Auth::user()->isAdmin())
+ 
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('admin.users.index') }}"><i class="bi bi-people"></i> Users</a>
             </li>
-        @endif
-
+        {{-- @endif
+@if(Auth::user()->isAdmin()) --}}
                 {{-- <li class="nav-item">
                     <a class="nav-link" href="#">
                         <i class="bi bi-people"></i> Users
@@ -43,11 +43,14 @@
                         <i class="bi bi-graph-up"></i> Analytics
                     </a>
                 </li>
-                <li class="nav-item">
+                @can('create', App\Models\Category::class)
+                    <li class="nav-item">
                     <a class="nav-link" href="{{ route("category.index") }}">
                         <i class="bi bi-collection"></i> Categories
                     </a>
                 </li>
+                @endcan
+                
 
 {{-- links --}}
 
