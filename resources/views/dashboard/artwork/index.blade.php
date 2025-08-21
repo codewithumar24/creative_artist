@@ -75,9 +75,13 @@
                                 <td>{{$artwork->id}}</td>
                                 <td>
                                     <div class="d-flex align-items-center">
-                                        <img src="{{ asset('storage/' . $artwork->user->avatar) }}" 
-                                             class="artwork-thumb me-3" width="40" hight="40"
-                                             alt="Starry Night">
+                                        <img src="{{ $artwork->user && $artwork->user->avatar 
+                                              ? asset('storage/avatars/' . $artwork->user->avatar) 
+                                              : asset('images/default-avatar.png') }}" 
+                                      class="artwork-thumb me-3 rounded-circle" 
+                                      width="40" 
+                                      height="40"
+                                      alt="{{ $artwork->user ? $artwork->user->name : 'Unknown User' }}">
                                              
                                         <div>
                                             <strong>{{$artwork->title}}</strong>

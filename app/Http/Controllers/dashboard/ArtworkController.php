@@ -16,6 +16,7 @@ class ArtworkController extends Controller
      */
     public function index()
     {
+        // $artworks = Artwork::with('user')->get();
         $artworks = auth()->user()->artworks;
         // $artwork = Artwork::all();
         // $artworks = $user->artworks()->with('category')->latest()->get();
@@ -40,6 +41,7 @@ class ArtworkController extends Controller
         'title' => 'required|string|max:255',
         'description' => 'nullable|string',
         'medium' => 'required|string|max:255',
+        'price' => 'required|decimal|max:10',
         'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
     
         'category_id' => 'required|exists:categories,id',
@@ -53,6 +55,7 @@ class ArtworkController extends Controller
     $artwork->title = $validated['title'];
     $artwork->description = $validated['description'] ?? null;
     $artwork->medium = $validated['medium'];
+    $artwork->price = $validated['price'];
     $artwork->image = $imagePath;
         $artwork->user_id = auth()->id(); 
     $artwork->category_id = $validated['category_id'];
@@ -66,11 +69,17 @@ class ArtworkController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {
-        $artwork = Artwork::with('category')->findOrFail($id);
-        return view('dashboard.artwork.show', compact('artwork'));
-    }
+    // public function show(string $id)
+    // {
+    //     $artwork = Artwork::with('category')->findOrFail($id);
+    //     return view('dashboard.artwork.show', compact('artwork'));
+    // }
+
+    public function show($id)
+{
+    $artwork = Artwork::with(['user', 'category'])->findOrFail($id);
+    return view('dashboard.artwork.show', compact('artwork'));
+}
 
     /**
      * Show the form for editing the specified resource.
@@ -95,6 +104,7 @@ class ArtworkController extends Controller
             'title' => 'required|string|max:100|unique:artworks,title,' . $artwork->id,
             'description' => 'required|string|max:200',
             'medium' => 'required|string',
+             'price' => 'required|decimal|max:10',
             'image' => 'sometimes|image|max:2048|mimes:jpg,jpeg,png',
             'category_id' => 'required|exists:categories,id'
         ]);
@@ -104,6 +114,7 @@ class ArtworkController extends Controller
             'title' => $request->input('title'),
             'description' => $request->input('description'),
             'medium' => $request->input('medium'),
+            'price'=> $request->input('price'),
             'category_id' => $request->input('category_id'),
         ];
 
@@ -152,4 +163,13 @@ class ArtworkController extends Controller
             ]);
         }
     }
+
+
+
+
+//     public function showFrontend($id)
+// {
+//     $painting = Artwork::findOrFail($id); // artworks table se record
+//     return view('home.paintings.detail', compact('painting'));
+// }
 }

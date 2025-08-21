@@ -75,7 +75,9 @@
                         <a href="artist-profile.html" class="text-decoration-none artist-link">
                             <div class="d-flex align-items-center">
                                 <div class="artist-avatar-container">
-                                    <img src="{{ asset('storage/'.$artwork->artist_image) }}" 
+                                    <img src="{{ $artwork->user && $artwork->user->avatar 
+                                              ? asset('storage/avatars/' . $artwork->user->avatar) 
+                                              : asset('images/default-avatar.png') }}"
                                          alt="{{ $artwork->artist_name }}" 
                                          class="artist-avatar">
                                 </div>

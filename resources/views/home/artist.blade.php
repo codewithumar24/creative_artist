@@ -15,9 +15,11 @@
                    @foreach ($artists as $artist)
                       <div class="col-md-6 col-lg-4 mb-4">
                       <div class="artist-card">
-                       <img src="{{ $artist->avatar ? asset('storage/'.$artist->avatar) : asset('images/default-avatar.jpg') }}" 
-                     alt="{{ $artist->name }}" 
-                     class="artist-avatar">
+                       <img src="{{ $artist->user && $artist->user->avatar 
+                                              ? asset('storage/avatars/' . $artist->user->avatar) 
+                                              : asset('images/default-avatar.png') }}"
+                                         alt="{{ $artist->artist_name }}" 
+                     class="artist-imag">
                 <h4>{{ $artist->name }}</h4>
                 <p class="text-muted">{{ $artist->specialty }}</p>
                 <p class="small">{{ $artist->location }}</p>

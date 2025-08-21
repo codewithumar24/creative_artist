@@ -66,6 +66,20 @@
                         <div class="invalid-feedback d-none" id="mediumError">Please specify the medium</div>
                     </div>
 
+                    <!-- Price Field -->
+                    <div class="mb-4">
+                        <label for="price" class="form-label">Price (Rs.) <span class="text-danger">*</span></label>
+                        <input type="number" 
+                               class="form-control" 
+                               id="price" 
+                               name="price" 
+                               placeholder="e.g. 5000"
+                               min="0"
+                               step="0.01"
+                               required>
+                        <div class="invalid-feedback d-none" id="priceError">Please enter a valid price</div>
+                    </div>
+
                     <!-- Artwork Image -->
                     <div class="mb-4">
                         <label for="image" class="form-label">Artwork Image <span class="text-danger">*</span></label>
@@ -77,29 +91,6 @@
                                required>
                         <div class="invalid-feedback d-none" id="imageError">Please select an image file</div>
                     </div>
-
-                    <!-- Artist Name -->
-                    {{-- <div class="mb-4">
-                        <label for="artist_name" class="form-label">Artist Name <span class="text-danger">*</span></label>
-                        <input type="text" 
-                               class="form-control" 
-                               id="artist_name" 
-                               name="artist_name" 
-                               placeholder="e.g. Vincent van Gogh"
-                               required>
-                        <div class="invalid-feedback d-none" id="artistNameError">Please enter artist name</div>
-                    </div> --}}
-
-                    <!-- Artist Image -->
-                    {{-- <div class="mb-4">
-                        <label for="artist_image" class="form-label">Artist Image (Optional)</label>
-                        <input type="file" 
-                               class="form-control" 
-                               id="artist_image" 
-                               name="artist_image"
-                               accept="image/*">
-                        <div class="invalid-feedback d-none" id="artistImageError">Invalid image format</div>
-                    </div> --}}
 
                     <!-- Category Selection -->
                     <div class="mb-4">
@@ -177,10 +168,11 @@
             isValid = false;
         }
         
-        const artistName = document.getElementById('artist_name');
-        if (!artistName.value.trim()) {
-            artistName.classList.add('is-invalid');
-            document.getElementById('artistNameError').classList.remove('d-none');
+        // Price validation
+        const price = document.getElementById('price');
+        if (!price.value || parseFloat(price.value) <= 0) {
+            price.classList.add('is-invalid');
+            document.getElementById('priceError').classList.remove('d-none');
             isValid = false;
         }
         

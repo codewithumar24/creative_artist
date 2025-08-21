@@ -64,9 +64,24 @@ public function artist()
     return $this->hasOne(Artist::class);
 }
 
+// public function artworks()
+// {
+//     return $this->hasMany(Artwork::class);
+// }
+
 public function artworks()
 {
-    return $this->hasMany(Artwork::class);
+    return $this->hasMany(Artwork::class, 'user_id');
 }
+
+  public function cartItems()
+    {
+        return $this->hasMany(CartItem::class);
+    }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
 
 }

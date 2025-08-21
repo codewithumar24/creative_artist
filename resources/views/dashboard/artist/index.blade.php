@@ -89,7 +89,7 @@
                           @foreach ($artists as $artist)
                                 <tr>
                                 <td>
-                                    <img src="{{ asset("storage/". $artist->user->avatar) }}" 
+                                    <img src="{{ asset("storage/avatars/". $artist->user->avatar) }}" 
                                          class="rounded-circle" 
                                          width="50" 
                                          height="50" 

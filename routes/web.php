@@ -1,13 +1,15 @@
 <?php
-
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\dashboard\ArtistController;
 use App\Http\Controllers\dashboard\ArtworkController;
 use App\Http\Controllers\dashboard\CategoryController;
 use App\Http\Controllers\dashboard\DashboardController;
 use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,14 +19,14 @@ Route::get("/about", [HomeController::class, "about"])->name("home.about");
 Route::get("/gallery", [HomeController::class, "gallery"])->name("home.gallery");
 Route::get("/contact", [HomeController::class, "contact"])->name("home.contact");
 Route::get("/artist", [HomeController::class, "artist"])->name("home.artist");
-Route::get("/profile", [HomeController::class, "profile"])->name("home.profile");
+Route::get("/profiles", [HomeController::class, "profile"])->name("home.profile");
 //login Routes
 Route::get("/loginForm", [AuthController::class, "showlogin"])->name("login");
 Route::get("/registerForm", [AuthController::class, "showRegister"])->name("auth.register");
 Route::post("/register", [AuthController::class, "register"])->name('auth.signUp');
 Route::post("/store", [AuthController::class, "login"])->name("auth.loginStore");
 Route::post("/logout", [AuthController::class, "logout"])->name("auth.logout");
-// All dashboard Routes
+                     // All dashboard Routes
 
 //category controller
 Route::middleware(['auth'])->prefix('/dashboard')->group(function () {
@@ -50,7 +52,7 @@ Route::middleware(['auth'])->prefix('/dashboard')->group(function () {
     Route::get('/artist/{artist}/edit', [ArtistController::class, 'edit'])->name('artist.edit');
     Route::post('/artist/{artist}', [ArtistController::class, 'update'])->name('artist.update');
     Route::get("/artist/delete/{id}",[ArtistController::class,"destroy"])->name("artist.destroy");
-    Route::get('/artist/{artist}', [ArtistController::class, 'show'])->name('artist.show');
+    Route::get('/artist/{id}', [ArtistController::class, 'show'])->name('artist.show');
 });
 Route::middleware(['auth'])->group(function () {
     // Profile routes
@@ -78,3 +80,25 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 // google logins 
 Route::get("/auth/google",[GoogleController::class,"redirectToGoogle"])->name("google.login");
 Route::get("/auth/google/callback",[GoogleController::class,"handleGoogle"])->name("googleHandle");
+
+
+Route::get('/painting/{id}', [HomeController::class, 'showFrontend'])->name('painting.detail');
+
+// routes/web.php
+Route::post('/cart/add/{id}', [CartController::class, 'add'])->name('cart.add');
+
+
+// Cart Routes
+// Cart Routes
+Route::post('/cart/add/{painting}', [CartController::class, 'add'])->name('cart.add');
+Route::get('/cart', [CartController::class, 'view'])->name('cart.view');
+Route::put('/cart/update/{cartItem}', [CartController::class, 'update'])->name('cart.update');
+Route::delete('/cart/remove/{cartItem}', [CartController::class, 'remove'])->name('cart.remove');
+Route::get('/cart/count', [CartController::class, 'count'])->name('cart.count');
+
+// Checkout Routes
+Route::get('/checkout', [CheckoutController::class, 'show'])->name('checkout')->middleware('auth');
+Route::post('/order/place', [OrderController::class, 'place'])->name('order.place')->middleware('auth');
+
+// Order History Routes
+Route::get('/orders', [OrderController::class, 'history'])->name('orders.history')->middleware('auth');

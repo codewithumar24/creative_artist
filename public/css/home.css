@@ -564,6 +564,14 @@
         height: 100%;
         object-fit: cover;
     }
+     .artist-image {
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+
 
     .artist-name {
         margin-left: 0.5rem;

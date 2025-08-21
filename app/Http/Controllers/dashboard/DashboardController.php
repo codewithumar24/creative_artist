@@ -12,13 +12,14 @@ class DashboardController extends Controller
 {
     public function index()
     {
+         $totalUsers = User::count();
          $recentUsers = User::latest()
                       ->take(5)
                       ->get();
  $recentArtworks = Artwork::latest()
                           ->take(3)
                           ->get();
-                           return view("dashboard.index", compact('recentUsers','recentArtworks'));
+                           return view("dashboard.index", compact('recentUsers','recentArtworks','totalUsers'));
         // if (Gate::allows("is_admin")) {
         //     return view("dashboard.index", compact('recentUsers','recentArtworks'));
         // } else {

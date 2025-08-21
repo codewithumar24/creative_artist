@@ -55,7 +55,7 @@
                             <div class="stat-icon text-primary">
                                 <i class="bi bi-people"></i>
                             </div>
-                            <h3 class="stat-value text-primary">1,248</h3>
+                            <h3 class="stat-value text-primary">{{ number_format($totalUsers) }}</h3>
                             <p class="stat-label">Total Users</p>
                             <p class="stat-change positive">
                                 <i class="bi bi-arrow-up"></i> 12% from last month
