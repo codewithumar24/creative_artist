@@ -16,7 +16,7 @@
                       <div class="col-md-6 col-lg-4 mb-4">
                       <div class="artist-card">
                        <img src="{{ $artist->user && $artist->user->avatar 
-                                              ? asset('storage/avatars/' . $artist->user->avatar) 
+                                              ? asset('storage/' . $artist->user->avatar) 
                                               : asset('images/default-avatar.png') }}"
                                          alt="{{ $artist->artist_name }}" 
                      class="artist-imag">

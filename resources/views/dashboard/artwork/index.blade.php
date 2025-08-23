@@ -76,7 +76,7 @@
                                 <td>
                                     <div class="d-flex align-items-center">
                                         <img src="{{ $artwork->user && $artwork->user->avatar 
-                                              ? asset('storage/avatars/' . $artwork->user->avatar) 
+                                              ? asset('storage/' . $artwork->user->avatar) 
                                               : asset('images/default-avatar.png') }}" 
                                       class="artwork-thumb me-3 rounded-circle" 
                                       width="40" 

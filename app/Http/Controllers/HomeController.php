@@ -10,8 +10,10 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $artwork = Artwork::all();
-        return view("home.index", ['artworks' => $artwork]);
+        $artworks = Artwork::all();
+        $artists = Artist::all();
+         return view("home.index", compact('artworks','artists'));
+        // return view("home.index", ['artworks' => $artwork,'artsits'=> $artist]);
     }
     public function about()
     {

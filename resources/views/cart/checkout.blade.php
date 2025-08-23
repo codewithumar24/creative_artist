@@ -72,27 +72,15 @@
                 <div class="card-body">
                     <div class="form-check mb-2">
                         <input class="form-check-input" type="radio" name="payment_method" 
-                               id="creditCard" value="credit_card" checked>
-                        <label class="form-check-label" for="creditCard">
-                            Credit Card
+                               id="stripe" value="stripe" checked>
+                        <label class="form-check-label" for="stripe">
+                            Credit/Debit Card (Stripe)
                         </label>
                     </div>
                     
-                    <div class="row mt-3">
-                        <div class="col-12 mb-3">
-                            <label for="cardNumber" class="form-label">Card Number</label>
-                            <input type="text" class="form-control" id="cardNumber" 
-                                   placeholder="1234 5678 9012 3456" required>
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <label for="expiration" class="form-label">Expiration</label>
-                            <input type="text" class="form-control" id="expiration" 
-                                   placeholder="MM/YY" required>
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <label for="cvv" class="form-label">CVV</label>
-                            <input type="text" class="form-control" id="cvv" placeholder="123" required>
-                        </div>
+                    <div class="alert alert-info mt-3">
+                        <i class="fas fa-info-circle me-2"></i>
+                        You will be redirected to Stripe to complete your payment securely.
                     </div>
                 </div>
             </div>
@@ -129,7 +117,7 @@
                     </div>
                     
                     <button type="submit" class="btn btn-primary w-100" id="placeOrderBtn">
-                        Place Order
+                        Proceed to Payment
                     </button>
                 </div>
             </div>

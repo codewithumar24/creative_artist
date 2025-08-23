@@ -13,7 +13,7 @@ class ArtsitPolicy
      */
     public function viewAny(User $user): bool
     {
-        return false;
+       return $user->role === 'admin';
     }
 
     /**
@@ -21,7 +21,7 @@ class ArtsitPolicy
      */
     public function view(User $user, Artist $artist): bool
     {
-        return $user->id === $artist->user_id;
+        return $user->role === 'admin' || $user->id === $artist->user_id;
     }
 
     /**

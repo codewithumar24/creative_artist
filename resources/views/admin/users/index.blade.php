@@ -56,7 +56,7 @@
                                 <td>
                                     <div class="d-flex align-items-center">
                                         @if($user->avatar)
-                                            <img src="{{ asset('storage/avatars/'.$user->avatar) }}" class="user-avatar me-3" alt="{{ $user->name }}">
+                                            <img src="{{ asset('storage/'.$user->avatar) }}" class="user-avatar me-3" alt="{{ $user->name }}">
                                         @else
                                             <img src="https://ui-avatars.com/api/?name={{ urlencode($user->name) }}&color=7F9CF5&background=EBF4FF" class="user-avatar me-3" alt="{{ $user->name }}">
                                         @endif

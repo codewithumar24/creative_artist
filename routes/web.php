@@ -98,7 +98,11 @@ Route::get('/cart/count', [CartController::class, 'count'])->name('cart.count');
 
 // Checkout Routes
 Route::get('/checkout', [CheckoutController::class, 'show'])->name('checkout')->middleware('auth');
-Route::post('/order/place', [OrderController::class, 'place'])->name('order.place')->middleware('auth');
+// Route::post('/order/place', [OrderController::class, 'place'])->name('order.place')->middleware('auth');
 
 // Order History Routes
 Route::get('/orders', [OrderController::class, 'history'])->name('orders.history')->middleware('auth');
+
+Route::post('/order/place', [OrderController::class, 'place'])->name('order.place');
+Route::get('/stripe/success', [OrderController::class, 'stripeSuccess'])->name('stripe.success');
+Route::get('/stripe/cancel', [OrderController::class, 'stripeCancel'])->name('stripe.cancel');

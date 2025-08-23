@@ -21,7 +21,7 @@
                 <div class="row">
                     <div class="col-md-4 text-center">
                         @if($user->avatar)
-                            <img src="{{ asset('storage/avatars/'.$user->avatar) }}" class="img-thumbnail rounded-circle mb-3" width="150" alt="Avatar">
+                            <img src="{{ asset('storage/'.$user->avatar) }}" class="img-thumbnail rounded-circle mb-3" width="150" alt="Avatar">
                         @else
                             <img src="https://ui-avatars.com/api/?name={{ urlencode($user->name) }}&color=7F9CF5&background=EBF4FF" class="img-thumbnail rounded-circle mb-3" width="150" alt="Avatar">
                         @endif

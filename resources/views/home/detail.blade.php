@@ -20,7 +20,7 @@
 <div class="d-flex align-items-center mb-4">
     <div class="artist-avatar-container">
         <img src="{{ $painting->user && $painting->user->avatar 
-                                              ? asset('storage/avatars/' . $painting->user->avatar) 
+                                              ? asset('storage/' . $painting->user->avatar) 
                                               : asset('images/default-avatar.png') }}" 
              alt="{{ $painting->user->name ?? 'Unknown Artist' }}" 
              class="artist-avatar">

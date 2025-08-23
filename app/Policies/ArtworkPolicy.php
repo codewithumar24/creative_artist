@@ -21,7 +21,8 @@ class ArtworkPolicy
      */
     public function view(User $user, Artwork $artwork): bool
     {
-        return $user->id === $artwork->user_id;
+        // return $user->id === $artwork->user_id;
+          return $user->id === $artwork->user_id;
     }
 
     /**

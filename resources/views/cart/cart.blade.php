@@ -3,7 +3,11 @@
 @section('homeMain')
 <div class="container py-5 mt-5">
     <h2 class="section-title mb-4">Your Shopping Cart</h2>
-    
+    <h2 class="section-title mb-4 ms-5">
+    <span class="badge bg-primary">
+        {{ $cartItems->sum('quantity') }} Products
+    </span>
+</h2>
     @if(count($cartItems) > 0)
     <div class="row">
         <div class="col-lg-8">

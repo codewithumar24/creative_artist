@@ -37,16 +37,6 @@
             <x-cart iconclass="fas fa-users" paragraph="Connect with thousands of art enthusiasts, collectors, and fellow artists who appreciate your creative work." heading="Engaged Community" />
 
             <x-cart iconclass="fas fa-chart-line" paragraph="Access analytics, marketing tools, and resources to help you grow your audience and artistic career." heading="Growth Tools" />
-
-            {{-- <div class="col-md-4 mb-4 animate-on-scroll">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-palette"></i>
-                    </div>
-                    <h3>Beautiful Portfolio</h3>
-                    <p>Create a stunning online portfolio that showcases your artwork in the best light with our customizable templates.</p>
-                </div>
-            </div> --}}
         </div>
     </div>
 </section>
@@ -76,7 +66,7 @@
                             <div class="d-flex align-items-center">
                                 <div class="artist-avatar-container">
                                     <img src="{{ $artwork->user && $artwork->user->avatar 
-                                              ? asset('storage/avatars/' . $artwork->user->avatar) 
+                                              ? asset('storage/' . $artwork->user->avatar) 
                                               : asset('images/default-avatar.png') }}"
                                          alt="{{ $artwork->artist_name }}" 
                                          class="artist-avatar">
@@ -109,21 +99,56 @@
         </div>
 
         <div class="row mt-5">
-            <div class="col-md-6 col-lg-3 mb-4 animate-on-scroll">
-                <div class="artist-card">
-                    <img src="https://randomuser.me/api/portraits/women/12.jpg" alt="Artist" class="artist-avatar">
-                    <h4>Jessica Parker</h4>
-                    <p class="text-muted">Oil Painter</p>
-                    <div class="artist-social">
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-behance"></i></a>
-                    </div>
-                    <a href="artist-profile.html" class="btn btn-outline-primary mt-3">View Portfolio</a>
+           @foreach ($artists as $artist)
+                      <div class="col-md-6 col-lg-4 mb-4">
+                      <div class="artist-card">
+                       <img src="{{ $artist->user && $artist->user->avatar 
+                                              ? asset('storage/' . $artist->user->avatar) 
+                                              : asset('images/default-avatar.png') }}"
+                                         alt="{{ $artist->artist_name }}" 
+                     class="artist-imag">
+                <h4>{{ $artist->name }}</h4>
+                <p class="text-muted">{{ $artist->specialty }}</p>
+                <p class="small">{{ $artist->location }}</p>
+                <div class="artist-social">
+                    @if($artist->instagram)
+                        <a href="{{ $artist->instagram }}" target="_blank" rel="noopener noreferrer">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    @endif
+                    
+                    @if($artist->twitter)
+                        <a href="{{ $artist->twitter }}" target="_blank" rel="noopener noreferrer">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    @endif
+                    
+                    @if($artist->behance)
+                        <a href="{{ $artist->behance }}" target="_blank" rel="noopener noreferrer">
+                            <i class="fab fa-behance"></i>
+                        </a>
+                    @endif
+                    
+                    @if($artist->dribbble)
+                        <a href="{{ $artist->dribbble }}" target="_blank" rel="noopener noreferrer">
+                            <i class="fab fa-dribbble"></i>
+                        </a>
+                    @endif
+                    
+                    @if($artist->website)
+                        <a href="{{ $artist->website }}" target="_blank" rel="noopener noreferrer">
+                            <i class="fas fa-globe"></i>
+                        </a>
+                    @endif
                 </div>
+                <a href="{{ route('artist.show', $artist->id) }}" class="btn btn-outline-primary mt-3">
+                    View Portfolio
+                </a>
             </div>
+        </div>
+    @endforeach
 
-            <div class="col-md-6 col-lg-3 mb-4 animate-on-scroll">
+            {{-- <div class="col-md-6 col-lg-3 mb-4 animate-on-scroll">
                 <div class="artist-card">
                     <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Artist" class="artist-avatar">
                     <h4>David Kim</h4>
@@ -163,7 +188,7 @@
                     </div>
                     <a href="artist-profile.html" class="btn btn-outline-primary mt-3">View Portfolio</a>
                 </div>
-            </div>
+            </div> --}}
         </div>
 
         <div class="text-center mt-4">

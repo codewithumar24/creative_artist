@@ -9,9 +9,6 @@
         </div>
         <div class="header-right">
 <a class="btn btn-primary btn-sm" href="{{ route("artist.create") }}"><i class="bi bi-plus-lg me-1"></i> Add Artist</a>
-            {{-- <button class="btn btn-primary btn-sm" onclick="showError('Add artist functionality would be implemented')">
-                <i class="bi bi-plus-lg me-1"></i> Add Artist
-            </button> --}}
         </div>
     </div>
 @if($errors->any())
@@ -89,7 +86,7 @@
                           @foreach ($artists as $artist)
                                 <tr>
                                 <td>
-                                    <img src="{{ asset("storage/avatars/". $artist->user->avatar) }}" 
+                                    <img src="{{ asset("storage/". $artist->user->avatar) }}" 
                                          class="rounded-circle" 
                                          width="50" 
                                          height="50" 
@@ -140,17 +137,6 @@
                                     <a class="btn btn-outline-primary" href="{{ route('artist.show', $artist->id) }}"> <i class="bi bi-eye"></i></a>
                                     <a class="btn btn-outline-success" href="{{ route("artist.edit",$artist->id) }}"><i class="bi bi-pencil"></i></a>
                                     <a class="btn btn-outline-danger" href="{{ route("artist.destroy",$artist->id) }}"><i class="bi bi-trash"></i></a>
-
-                                        
-                                        {{-- <button class="btn btn-outline-primary" onclick="showError('View artist')">
-                                            <i class="bi bi-eye"></i>
-                                        </button>
-                                        <button class="btn btn-outline-success" onclick="showError('Edit artist')">
-                                            <i class="bi bi-pencil"></i>
-                                        </button>
-                                        <button class="btn btn-outline-danger" onclick="showError('Delete artist')">
-                                            <i class="bi bi-trash"></i>
-                                        </button> --}}
                                     </div>
                                 </td>
                             </tr>

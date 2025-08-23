@@ -128,4 +128,29 @@
             }, 5000);
         }
 
+        /// category filterr sections  
         
+        document.addEventListener("DOMContentLoaded", function () {
+    const filterLinks = document.querySelectorAll(".filter-nav .nav-link");
+    const items = document.querySelectorAll(".gallery-items > div");
+
+    filterLinks.forEach(link => {
+        link.addEventListener("click", function (e) {
+            e.preventDefault();
+
+            // active class set karna
+            filterLinks.forEach(l => l.classList.remove("active"));
+            this.classList.add("active");
+
+            const filter = this.getAttribute("data-filter");
+
+            items.forEach(item => {
+                if (filter === "all" || item.getAttribute("data-category") === filter) {
+                    item.style.display = "block"; // Show
+                } else {
+                    item.style.display = "none"; // Hide
+                }
+            });
+        });
+    });
+});
